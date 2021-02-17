@@ -111,6 +111,24 @@
         const endpoint = document.getElementById('endpoint').value
         const record_id = Number(window.prompt("Enter record id", ""))
         var endpoint_id = endpoint + '/' + record_id
+
+        fetch(endpoint_id)
+          .then(response => {
+            if(!response.ok){
+              document.getElementById('output').innerHTML ="Network Error " + response.status
+              return;
+            }
+            return response.json()
+          })
+          .then(json => {
+            var data_in_string = JSON.stringify(json)
+            document.getElementById('output').innerHTML = data_in_string
+          })
+          .catch((error) => {
+            document.getElementById('output').textContent = error.name
+          })
+
+          /*
         fetch(endpoint_id)
           .then(response => {
             if (response.status === 200 || response.status === 304) {
@@ -124,7 +142,7 @@
           })
           .catch((error) => {
             document.getElementById('output').textContent = error.name
-          })
+          })*/
       }
 
       // This function should use fetch to create one entry in the given endpoint.
