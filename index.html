@@ -84,9 +84,7 @@
       // The main difference from fetchOne() will be the URL you request from; check
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchAll() {
-        // TODO
-        document.getElementById('recordForm').style.display = 'none';
-        document.getElementById('recordIDcontainer').style.display = 'none';
+        hideClearCells()
         var endpoint = document.getElementById('endpoint').value
         fetch(endpoint)
           .then(response => {
@@ -109,11 +107,9 @@
       // The main difference from fetchAll() will be the URL you request from; check
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchOne() {
-        // TODO
-        document.getElementById('recordForm').style.display = 'none';
-        document.getElementById('recordIDcontainer').style.display = 'none';
+        hideClearCells()
         var endpoint = document.getElementById('endpoint').value
-        const record_id = Number(window.prompt("Enter record id", ""));
+        const record_id = Number(window.prompt("Enter record id", ""))
         var endpoint_id = endpoint + '/' + record_id
         fetch(endpoint_id)
           .then(response => {
@@ -218,14 +214,9 @@
       // request; check the writeup to view the URL pattern for get one and delete. THERE IS NO 
       // delete all, only delete one.
       function deleteRecord() {
-        // TODO
-        document.getElementById('title').value = '';
-        document.getElementById('author').value = '';
-        document.getElementById('recordID').value = '';
-        document.getElementById('recordForm').style.display = 'none';
-        document.getElementById('recordIDcontainer').style.display = 'none';
+        hideClearCells()
         var endpoint = document.getElementById('endpoint').value
-        const record_id = Number(window.prompt("Enter record id", ""));
+        const record_id = Number(window.prompt("Enter record id", ""))
         var endpoint_id = endpoint + '/' + record_id
         fetch(endpoint_id, {
             method: 'DELETE'
@@ -243,8 +234,15 @@
           .catch((error) => {
             document.getElementById('output').textContent = error.name
           });
+      }
 
-
+      // This is the helper method that resets the values in c
+      function hideClearCells() {
+        document.getElementById('title').value = ''
+        document.getElementById('author').value = ''
+        document.getElementById('recordID').value = ''
+        document.getElementById('recordForm').style.display = 'none'
+        document.getElementById('recordIDcontainer').style.display = 'none'
       }
 
       window.addEventListener('DOMContentLoaded', () => {
