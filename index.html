@@ -85,6 +85,8 @@
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchAll() {
         // TODO
+        document.getElementById('recordForm').style.display = 'none';
+        document.getElementById('recordIDcontainer').style.display = 'none';
         var endpoint = document.getElementById('endpoint').value
         fetch(endpoint)
           .then(response => response.json())
@@ -100,6 +102,8 @@
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchOne() {
         // TODO
+        document.getElementById('recordForm').style.display = 'none';
+        document.getElementById('recordIDcontainer').style.display = 'none';
         var endpoint = document.getElementById('endpoint').value
         const record_id = Number(window.prompt("Enter record id", ""));
         var endpoint_id = endpoint + '/' + record_id
@@ -117,6 +121,7 @@
       // the writeup to view the URL pattern for create and update
       function createRecord() {
         document.getElementById('recordForm').style.display = 'inline';
+        document.getElementById('recordIDcontainer').style.display = 'none';
         if(arguments[0] === 'submit'){
           const record_author = document.getElementById('author').value
           const record_title = document.getElementById("title").value
