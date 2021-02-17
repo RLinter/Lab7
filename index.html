@@ -219,6 +219,9 @@
       // delete all, only delete one.
       function deleteRecord() {
         // TODO
+        document.getElementById('title').value = '';
+        document.getElementById('author').value = '';
+        document.getElementById('recordID').value = '';
         document.getElementById('recordForm').style.display = 'none';
         document.getElementById('recordIDcontainer').style.display = 'none';
         var endpoint = document.getElementById('endpoint').value
