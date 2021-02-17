@@ -98,7 +98,7 @@
             document.getElementById('output').innerHTML = data_in_string
           })
           .catch((error) => {
-            if (typeof variable !== 'undefined') {
+            if (typeof error.status !== 'undefined') {
               document.getElementById('output').textContent = "Network Error: " + error.status
             } else {
               document.getElementById('output').textContent = error.stack
@@ -128,7 +128,7 @@
             document.getElementById('output').innerHTML = data_in_string
           })
           .catch((error) => {
-            if (typeof variable !== 'undefined') {
+            if (typeof error.status !== 'undefined') {
               document.getElementById('output').textContent = "Network Error: " + error.status
             } else {
               document.getElementById('output').textContent = error.stack
@@ -169,8 +169,8 @@
               document.getElementById('output').innerHTML = data_in_string
             })
             .catch((error) => {
-              if (typeof variable !== 'undefined') {
-              document.getElementById('output').textContent = "Network Error: " + error.status
+              if (typeof error.status !== 'undefined') {
+                document.getElementById('output').textContent = "Network Error: " + error.status
               } else {
                 document.getElementById('output').textContent = error.stack
               }
@@ -212,8 +212,8 @@
               document.getElementById('output').innerHTML = data_in_string
             })
             .catch((error) => {
-              if (typeof variable !== 'undefined') {
-              document.getElementById('output').textContent = "Network Error: " + error.status
+              if (typeof error.status !== 'undefined') {
+                document.getElementById('output').textContent = "Network Error: " + error.status
               } else {
                 document.getElementById('output').textContent = error.stack
               }
@@ -245,8 +245,8 @@
               document.getElementById('output').innerHTML = data_in_string
             })
             .catch((error) => {
-              if (typeof variable !== 'undefined') {
-              document.getElementById('output').textContent = "Network Error: " + error.status
+              if (typeof error.status !== 'undefined') {
+                document.getElementById('output').textContent = "Network Error: " + error.status
               } else {
                 document.getElementById('output').textContent = error.stack
               }
