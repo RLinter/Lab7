@@ -151,17 +151,17 @@
             headers: { "Content-type": "application/json" }
           })
             .then(response => {
-              if (response.status === 201) {
-                response.json().then(data =>{
-                  var data_in_string = JSON.stringify(data)
-                  document.getElementById('output').innerHTML = data_in_string
-                })
-              } else {
-                document.getElementById('output').innerHTML ="Network Error " + response.status
+              if(!response.ok){
+                throw response
               }
+              return response.json()
+            })
+            .then(json => {
+              var data_in_string = JSON.stringify(json)
+              document.getElementById('output').innerHTML = data_in_string
             })
             .catch((error) => {
-              document.getElementById('output').textContent = error.name
+              document.getElementById('output').textContent = "Network Error: " + error.status
             })
         }    
       }
