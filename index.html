@@ -86,16 +86,17 @@
       function fetchAll() {
         hideClearCells()
         const endpoint = document.getElementById('endpoint').value
-        fetch(endpoint)
+        fetch(endpoint_id)
           .then(response => {
-            if (response.status === 200 || response.status === 304) {
-              response.json().then(data =>{
-                var data_in_string = JSON.stringify(data)
-                document.getElementById('output').innerHTML = data_in_string
-              })
-            } else {
+            if(!response.ok){
               document.getElementById('output').innerHTML ="Network Error " + response.status
+              return;
             }
+            return response.json()
+          })
+          .then(json => {
+            var data_in_string = JSON.stringify(json)
+            document.getElementById('output').innerHTML = data_in_string
           })
           .catch((error) => {
             document.getElementById('output').textContent = error.name
@@ -128,21 +129,7 @@
             document.getElementById('output').textContent = error.name
           })
 
-          /*
-        fetch(endpoint_id)
-          .then(response => {
-            if (response.status === 200 || response.status === 304) {
-              response.json().then(data =>{
-                var data_in_string = JSON.stringify(data)
-                document.getElementById('output').innerHTML = data_in_string
-              })
-            } else {
-              document.getElementById('output').innerHTML ="Network Error " + response.status
-            }
-          })
-          .catch((error) => {
-            document.getElementById('output').textContent = error.name
-          })*/
+
       }
 
       // This function should use fetch to create one entry in the given endpoint.
@@ -205,14 +192,15 @@
             headers: { "Content-type": "application/json" }
           })
             .then(response => {
-              if (response.status === 200) {
-                response.json().then(data =>{
-                  var data_in_string = JSON.stringify(data)
-                  document.getElementById('output').innerHTML = data_in_string
-                })
-              } else {
+              if(!response.ok){
                 document.getElementById('output').innerHTML ="Network Error " + response.status
+                return;
               }
+              return response.json()
+            })
+            .then(json => {
+              var data_in_string = JSON.stringify(json)
+              document.getElementById('output').innerHTML = data_in_string
             })
             .catch((error) => {
               document.getElementById('output').textContent = error.name
@@ -233,19 +221,20 @@
         fetch(endpoint_id, {
             method: 'DELETE'
           })
-          .then(response => {
-            if (response.status === 200) {
-              response.json().then(data =>{
-                var data_in_string = JSON.stringify(data)
-                document.getElementById('output').innerHTML = data_in_string
-              })
-            } else {
-              document.getElementById('output').innerHTML ="Network Error " + response.status
-            }
-          })
-          .catch((error) => {
-            document.getElementById('output').textContent = error.name
-          })
+            .then(response => {
+              if(!response.ok){
+                document.getElementById('output').innerHTML ="Network Error " + response.status
+                return;
+              }
+              return response.json()
+            })
+            .then(json => {
+              var data_in_string = JSON.stringify(json)
+              document.getElementById('output').innerHTML = data_in_string
+            })
+            .catch((error) => {
+              document.getElementById('output').textContent = error.name
+            })
       }
 
       // This is the helper method that resets the values in cells
