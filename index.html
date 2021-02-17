@@ -89,11 +89,19 @@
         document.getElementById('recordIDcontainer').style.display = 'none';
         var endpoint = document.getElementById('endpoint').value
         fetch(endpoint)
-          .then(response => response.json())
-          .then(data => {
-            var data_in_string = JSON.stringify(data)
-            document.getElementById('output').innerHTML = data_in_string
+          .then(response => {
+            if (response.status === 200 || response.status === 304) {
+              response.json().then(data =>{
+                var data_in_string = JSON.stringify(data)
+                document.getElementById('output').innerHTML = data_in_string
+              })
+            } else {
+              document.getElementById('output').innerHTML ="Network Error " + response.status
+            }
           })
+          .catch((error) => {
+            document.getElementById('output').textContent = error.name
+          });
       }
 
       // This function should fetch one entry from the given endpoint.
@@ -108,11 +116,19 @@
         const record_id = Number(window.prompt("Enter record id", ""));
         var endpoint_id = endpoint + '/' + record_id
         fetch(endpoint_id)
-          .then(response => response.json())
-          .then(data =>{
-            var data_in_string = JSON.stringify(data)
-            document.getElementById('output').innerHTML = data_in_string
+          .then(response => {
+            if (response.status === 200 || response.status === 304) {
+              response.json().then(data =>{
+                var data_in_string = JSON.stringify(data)
+                document.getElementById('output').innerHTML = data_in_string
+              })
+            } else {
+              document.getElementById('output').innerHTML ="Network Error " + response.status
+            }
           })
+          .catch((error) => {
+            document.getElementById('output').textContent = error.name
+          });
       }
 
       // This function should use fetch to create one entry in the given endpoint.
@@ -120,9 +136,13 @@
       // The main difference from updateRecord() will be the URL you send data to; check
       // the writeup to view the URL pattern for create and update
       function createRecord() {
-        document.getElementById('recordForm').style.display = 'inline';
-        document.getElementById('recordIDcontainer').style.display = 'none';
-        if(arguments[0] === 'submit'){
+        if (arguments[0] === 'show') {
+          document.getElementById('recordForm').style.display = 'inline';
+          document.getElementById('recordIDcontainer').style.display = 'none';
+          document.getElementById('title').value = '';
+          document.getElementById('author').value = '';
+          document.getElementById('recordID').value = '';
+        } else if (arguments[0] === 'submit'){
           const record_author = document.getElementById('author').value
           const record_title = document.getElementById("title").value
           var endpoint = document.getElementById('endpoint').value
@@ -134,26 +154,35 @@
             }),
             headers: { "Content-type": "application/json" }
           })
-            .then(response => response.json())
-            .then(data =>{
-              var data_in_string = JSON.stringify(data)
-              document.getElementById('output').innerHTML = data_in_string
+            .then(response => {
+              if (response.status === 201) {
+                response.json().then(data =>{
+                  var data_in_string = JSON.stringify(data)
+                  document.getElementById('output').innerHTML = data_in_string
+                })
+              } else {
+                document.getElementById('output').innerHTML ="Network Error " + response.status
+              }
+            })
+            .catch((error) => {
+              document.getElementById('output').textContent = error.name
             });
           
-        }
-          
+        }    
       }
             
-      
       // This function should use fetch to update one existing entry in the given endpoint.
       // From the 4 CRUD actions, this is the UPDATE action, and uses the PUT http method.
       // The main difference from createRecord() will be the URL you send data to; check
       // the writeup to view the URL pattern for create and update
       function updateRecord() {
-        // TODO
-        document.getElementById('recordForm').style.display = 'inline';
-        document.getElementById('recordIDcontainer').style.display = 'inline';
-        if(arguments[0] === 'submit'){
+        if (arguments[0] === 'show') {
+          document.getElementById('recordForm').style.display = 'inline';
+          document.getElementById('recordIDcontainer').style.display = 'inline';
+          document.getElementById('title').value = '';
+          document.getElementById('author').value = '';
+          document.getElementById('recordID').value = '';
+        } else if (arguments[0] === 'submit'){
           const record_author = document.getElementById('author').value
           const record_title = document.getElementById("title").value
           const record_id = document.getElementById('recordID').value
@@ -167,14 +196,20 @@
             }),
             headers: { "Content-type": "application/json" }
           })
-            .then(response => response.json())
-            .then(data =>{
-              var data_in_string = JSON.stringify(data)
-              document.getElementById('output').innerHTML = data_in_string
+            .then(response => {
+              if (response.status === 200) {
+                response.json().then(data =>{
+                  var data_in_string = JSON.stringify(data)
+                  document.getElementById('output').innerHTML = data_in_string
+                })
+              } else {
+                document.getElementById('output').innerHTML ="Network Error " + response.status
+              }
+            })
+            .catch((error) => {
+              document.getElementById('output').textContent = error.name
             });
         }
-
-
       }
 
       // This function should use fetch to delete one existing entry in the given endpoint.
@@ -184,17 +219,27 @@
       // delete all, only delete one.
       function deleteRecord() {
         // TODO
+        document.getElementById('recordForm').style.display = 'none';
+        document.getElementById('recordIDcontainer').style.display = 'none';
         var endpoint = document.getElementById('endpoint').value
         const record_id = Number(window.prompt("Enter record id", ""));
         var endpoint_id = endpoint + '/' + record_id
         fetch(endpoint_id, {
             method: 'DELETE'
           })
-            .then(response => response.json())
-            .then(data =>{
-              var data_in_string = JSON.stringify(data)
-              document.getElementById('output').innerHTML = data_in_string
-            });
+          .then(response => {
+            if (response.status === 200) {
+              response.json().then(data =>{
+                var data_in_string = JSON.stringify(data)
+                document.getElementById('output').innerHTML = data_in_string
+              })
+            } else {
+              document.getElementById('output').innerHTML ="Network Error " + response.status
+            }
+          })
+          .catch((error) => {
+            document.getElementById('output').textContent = error.name
+          });
 
 
       }
