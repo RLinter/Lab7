@@ -89,8 +89,7 @@
         fetch(endpoint)
           .then(response => {
             if(!response.ok){
-              document.getElementById('output').innerHTML ="Network Error " + response.status
-              return;
+              throw response
             }
             return response.json()
           })
@@ -99,7 +98,7 @@
             document.getElementById('output').innerHTML = data_in_string
           })
           .catch((error) => {
-            document.getElementById('output').textContent = error.name
+            document.getElementById('output').textContent = "Network Error: " + error.status
           })
       }
 
@@ -116,8 +115,7 @@
         fetch(endpoint_id)
           .then(response => {
             if(!response.ok){
-              document.getElementById('output').innerHTML ="Network Error " + response.status
-              return;
+              throw response
             }
             return response.json()
           })
@@ -126,7 +124,7 @@
             document.getElementById('output').innerHTML = data_in_string
           })
           .catch((error) => {
-            document.getElementById('output').textContent = error.name
+            document.getElementById('output').textContent = "Network Error: " + error.status
           })
 
 
@@ -193,8 +191,7 @@
           })
             .then(response => {
               if(!response.ok){
-                document.getElementById('output').innerHTML ="Network Error " + response.status
-                return;
+                throw response
               }
               return response.json()
             })
@@ -203,7 +200,7 @@
               document.getElementById('output').innerHTML = data_in_string
             })
             .catch((error) => {
-              document.getElementById('output').textContent = error.name
+              document.getElementById('output').textContent = "Network Error: " + error.status
             })
         }
       }
@@ -223,8 +220,7 @@
           })
             .then(response => {
               if(!response.ok){
-                document.getElementById('output').innerHTML ="Network Error " + response.status
-                return;
+                throw response
               }
               return response.json()
             })
@@ -233,7 +229,7 @@
               document.getElementById('output').innerHTML = data_in_string
             })
             .catch((error) => {
-              document.getElementById('output').textContent = error.name
+              document.getElementById('output').textContent = "Network Error: " + error.status
             })
       }
 
