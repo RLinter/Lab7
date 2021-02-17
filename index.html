@@ -85,7 +85,7 @@
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchAll() {
         hideClearCells()
-        var endpoint = document.getElementById('endpoint').value
+        const endpoint = document.getElementById('endpoint').value
         fetch(endpoint)
           .then(response => {
             if (response.status === 200 || response.status === 304) {
@@ -99,7 +99,7 @@
           })
           .catch((error) => {
             document.getElementById('output').textContent = error.name
-          });
+          })
       }
 
       // This function should fetch one entry from the given endpoint.
@@ -108,7 +108,7 @@
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchOne() {
         hideClearCells()
-        var endpoint = document.getElementById('endpoint').value
+        const endpoint = document.getElementById('endpoint').value
         const record_id = Number(window.prompt("Enter record id", ""))
         var endpoint_id = endpoint + '/' + record_id
         fetch(endpoint_id)
@@ -124,7 +124,7 @@
           })
           .catch((error) => {
             document.getElementById('output').textContent = error.name
-          });
+          })
       }
 
       // This function should use fetch to create one entry in the given endpoint.
@@ -133,11 +133,8 @@
       // the writeup to view the URL pattern for create and update
       function createRecord() {
         if (arguments[0] === 'show') {
-          document.getElementById('recordForm').style.display = 'inline';
-          document.getElementById('recordIDcontainer').style.display = 'none';
-          document.getElementById('title').value = '';
-          document.getElementById('author').value = '';
-          document.getElementById('recordID').value = '';
+          hideClearCells()
+          document.getElementById('recordForm').style.display = 'inline'
         } else if (arguments[0] === 'submit'){
           const record_author = document.getElementById('author').value
           const record_title = document.getElementById("title").value
@@ -162,8 +159,7 @@
             })
             .catch((error) => {
               document.getElementById('output').textContent = error.name
-            });
-          
+            })
         }    
       }
             
@@ -173,11 +169,9 @@
       // the writeup to view the URL pattern for create and update
       function updateRecord() {
         if (arguments[0] === 'show') {
-          document.getElementById('recordForm').style.display = 'inline';
-          document.getElementById('recordIDcontainer').style.display = 'inline';
-          document.getElementById('title').value = '';
-          document.getElementById('author').value = '';
-          document.getElementById('recordID').value = '';
+          hideClearCells()
+          document.getElementById('recordForm').style.display = 'inline'
+          document.getElementById('recordIDcontainer').style.display = 'inline'
         } else if (arguments[0] === 'submit'){
           const record_author = document.getElementById('author').value
           const record_title = document.getElementById("title").value
@@ -204,7 +198,7 @@
             })
             .catch((error) => {
               document.getElementById('output').textContent = error.name
-            });
+            })
         }
       }
 
@@ -215,7 +209,7 @@
       // delete all, only delete one.
       function deleteRecord() {
         hideClearCells()
-        var endpoint = document.getElementById('endpoint').value
+        const endpoint = document.getElementById('endpoint').value
         const record_id = Number(window.prompt("Enter record id", ""))
         var endpoint_id = endpoint + '/' + record_id
         fetch(endpoint_id, {
@@ -233,10 +227,10 @@
           })
           .catch((error) => {
             document.getElementById('output').textContent = error.name
-          });
+          })
       }
 
-      // This is the helper method that resets the values in c
+      // This is the helper method that resets the values in cells
       function hideClearCells() {
         document.getElementById('title').value = ''
         document.getElementById('author').value = ''
